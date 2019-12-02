@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ public class playQ extends AppCompatActivity implements View.OnClickListener {
     int i = 1;
     String [] newq;
     int ra;//правильный ответ
+    int score = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,15 +49,13 @@ public class playQ extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                try {
-                    questions();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                check(1);
                 break;
             case R.id.button2:
+                check(2);
                 break;
             case R.id.button3:
+                check(3);
                 break;
         }
     }
@@ -141,5 +141,18 @@ public class playQ extends AppCompatActivity implements View.OnClickListener {
         Random Rand = new Random();
         int b = Rand.nextInt(3);
         return b;
+    }
+    public void check(int n){
+        try {
+            questions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (ra==n){
+            Toast.makeText(getApplicationContext(),"Good",Toast.LENGTH_SHORT).show();
+            score = score + 10;
+        } else {
+            Toast.makeText(getApplicationContext(),"Baddd",Toast.LENGTH_SHORT).show();
+        }
     }
 }
